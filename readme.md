@@ -30,7 +30,8 @@ Kind of Google Duplex for Web
 
 
    **Sample**
-         let action_block = {
+        ```
+        let action_block = {
           'contact,contact us': { // keywords for redirecting to contact page
             action_type: 'redirect',
             action_value: 'http://localhost/webspeechdemo/contact.html',
@@ -44,6 +45,7 @@ Kind of Google Duplex for Web
             action_value: '',
           },
         };
+        ```
       
 
 **Specified functions [in same format]:**
@@ -51,7 +53,9 @@ Kind of Google Duplex for Web
      [Note: define function after defining variable "action_block"]
 
    **Sample**
-         function speakAbout(){
+        ```
+        function speakAbout(){
           console.log('speak about call function called');
         }
+        ```
       
