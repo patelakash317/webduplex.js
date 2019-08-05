@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- sample origin: https://github.com/googlearchive/webplatform-samples -->
+    <!-- http://localhost/webspeechdemo/webspeechdemo.html -->
+    <meta charset="utf-8">
+    <title>WebDupe plugin</title>
+    <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./assets/main_voice_recogise/css/main_voice_recogise.css" rel="stylesheet">
+    <style>
+      * {
+        font-family: Verdana, Arial, sans-serif;
+      }
+      a:link {
+        color:#000;
+        text-decoration: none;
+      }
+      a:visited {
+        color:#000;
+      }
+      a:hover {
+        color:#33F;
+      }
+      .credits{
+        width: inherit; 
+        text-align: center; 
+        margin-top: 10px; 
+        position: fixed; 
+        top: 100px;
+        /*bottom: 0;*/
+      }
+      .action_credits{
+        background: #ddd;
+        position: fixed;
+        /*right: 0;*/
+        top: 0;
+        width: 500px;
+        height: 100%;
+        padding: 10px;
+
+        right: -500px;
+        transition: all 0.55s ease-in-out;
+      }
+      .action_credits.showing{
+        right: 0px;
+        transition: all 0.55s ease-in-out;
+      }
+      .btnca{
+        transform: rotate(270deg);
+        /*position: relative;
+        right: 69px;
+        top: 11px;*/
+        position: absolute;
+        right: 477px;
+        top: 21px;
+        border-radius: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>Welcome to WebDupe - Web Voice Action using Speech Plugin</h3>
+    <p>Kind of Google Duplex for Web</p>
+    <h5>Basic commands:</h5>
+    <p class="m-0">&nbsp; &nbsp;- <b>Stop listening</b>: To stop listening</p>
+    <p class="m-0">&nbsp; &nbsp;- <b>Clear</b>: To clear existing commands</p>
+    </div>
+
+    <br/>
+    <h5>Working/Setup:</h5>
+    <p class="m-0">
+      <b>Files [in same format]:</b><br/>
+      <b>CSS:</b> main_voice_recogise.css<br/>
+      <b>JS:</b> jquery-3.3.1.min.js, bootstrap.min.js, main_voice_recogise.js
+    </p>
+
+    <br/><br/>
+    <b>Variables [in same format]:</b><br/>
+    <p class="m-0">
+      &nbsp; &nbsp;- <b>action_block</b>: Config variable for setup<br/>
+      &nbsp; &nbsp; &nbsp; &nbsp;- <b>action_type</b>: Action type: redirect, call_function OR call_previous<br/><br/>
+      &nbsp; &nbsp; &nbsp; &nbsp;- <b>action_value</b>: <br/>
+      
+      &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;If <b>action_type = redirect</b> <br/>
+      &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;- enter URL here, ex: http://example.com/about.html<br/><br/>
+
+      &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;If <b>action_type = call_function</b> <br/>
+      &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;- enter function name, ex: speakAbout <small>[Note: without () function braces]</small><br/><br/>
+
+      &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;If <b>action_type = call_previous</b> <br/>
+      &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;- keep this empty<br/><br/><br/>
+    </p>
+
+    <h5>&nbsp; &nbsp;Sample</h5>
+    <code>
+      <pre>
+        let action_block = {
+          'contact,contact us': { // keywords for redirecting to contact page
+            action_type: 'redirect',
+            action_value: 'http://localhost/webspeechdemo/contact.html',
+          },
+          'about,info,about us': { // keywords to call "speakAbout" function on about recognisation
+            action_type: 'call_function', 
+            action_value: 'speakAbout',
+          },
+          'back,previous page': { // keywords to identify to go back
+            action_type: 'call_previous',
+            action_value: '',
+          },
+        };
+      </pre>
+    </code>
+
+    <br/>
+    <b>Specified functions [in same format]:</b><br/>
+    <p class="m-0">&nbsp; &nbsp;- <b>speakAbout</b>: As specified in above code, used to call when about is recognised <br/>&nbsp; &nbsp; &nbsp;<small>[Note: define function after defining variable "action_block"]</small></p>
+    <h5>&nbsp; &nbsp;Sample</h5>
+    <code>
+      <pre>
+        function speakAbout(){
+          console.log('speak about call function called');
+        }
+      </pre>
+    </code>
+    
+
+    <div class="action_credits">
+      <button class="btnca btn btn-primary" onclick="showCredits()">Actions</button>
+      <div class="sendleft center">
+        <div class="credits">
+          <div class="center" id="headline"><a href="http://dvcs.w3.org/hg/speech-api/raw-file/tip/speechapi.html">WebDupe <br/>Web voice action plugin</a> demonstration</div>Google Chrome (Akash Patel [@patelakash317])
+        </div>
+      </div>
+    </p>
+    <script type="text/javascript" src="./assets/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="./assets/js/popper.min.js"></script>
+    <script type="text/javascript" src="./assets/js/bootstrap.min.js"></script>
+
+    <script>
+      // additional function
+        function showCredits(){
+          // console.log(document.getElementsByClassName('showing'))
+          if($('.action_credits').hasClass('showing')){
+            // console.log('hiding');
+            $('.action_credits').removeClass("showing");
+
+            $('.btnca').html('Actions');
+            $('.btnca').removeClass('btn-danger');
+            $('.btnca').addClass('btn-primary');
+          } else {
+            // console.log('un-hiding');
+            $('.action_credits').addClass("showing");
+            
+            $('.btnca').html('&nbsp; Hide&nbsp;');
+            $('.btnca').addClass('btn-danger');
+            $('.btnca').removeClass('btn-primary');
+          }
+        }
+      // additional function ensd
+    </script>
+
+    <script type="text/javascript" src="./assets/main_voice_recogise/js/main_voice_recogise.js"></script>
+    <!-- action functions -->
+    <script>
+      // request keywords
+        // full
+          // let action_block = {
+          //   //speakAboutUs(),
+          //   'visit,open,contact,contact us,Page': {
+          //     action_type: 'redirect',
+          //     action_value: 'http://localhost/webspeechdemo/contact.html',
+          //   },
+          //   'visit,redirect,about,inform,open,say,speak,tell,about us,page': {
+          //     action_type: 'call_function',
+          //     action_value: 'callout/about',
+          //   },
+          // };
+
+        // specific
+          let action_block = {
+            //speakAboutUs(),
+            'contact,contact us': {
+              action_type: 'redirect',
+              action_value: 'http://localhost/webspeechdemo/contact.html',
+            },
+            'about,info,about us': {
+              action_type: 'call_function',
+              action_value: 'speakAbout',
+              // action_value: 'callout/about',
+            },
+            'back,previous page': {
+              action_type: 'call_previous',
+              action_value: '',
+              // action_value: 'callout/about',
+            },
+          };
+      // request keywords ends
+
+      function speakAbout(){
+        console.log('speak about call function called');
+        var text = "This is a plugin which you can use it on your website to give your customers or users extra facility to get information about your website using voice actions or they can use it to redirect to some page very quickly, just by simply saying redirect me, to contact page.";
+        // var text = $('#message').val();
+        var msg = new SpeechSynthesisUtterance();
+        var voices = window.speechSynthesis.getVoices();
+        msg.voice = voices[4];
+        msg.rate = 10 / 10;
+        msg.pitch = 1;
+        // msg.voice = voices[$('#voices').val()];
+        // msg.rate = $('#rate').val() / 10;
+        // msg.pitch = $('#pitch').val();
+        msg.text = text;
+
+        msg.onend = function(e) {
+          console.log('Finished in ' + event.elapsedTime + ' seconds.');
+        };
+
+        speechSynthesis.speak(msg);
+      }
+      $(function(){
+        // speech source: https://codepen.io/SteveJRobertson/pen/emGWaR
+        // support: https://developers.google.com/web/updates/2014/01/Web-apps-that-talk-Introduction-to-the-Speech-Synthesis-API
+        if ('speechSynthesis' in window) {
+          speechSynthesis.onvoiceschanged = function() {
+            // var $voicelist = $('#voices');
+
+            // if($voicelist.find('option').length == 0) {
+              // speechSynthesis.getVoices().forEach(function(voice, index) {
+              //   var $option = $('<option>')
+              //   .val(index)
+              //   .html(voice.name + (voice.default ? ' (default)' :''));
+
+              //   $voicelist.append($option);
+              // });
+            // }
+          }
+        } else {
+        }
+      });
+    </script>
+    <!-- action functions ends-->
+  </body>
+</html>

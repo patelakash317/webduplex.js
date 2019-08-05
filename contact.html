@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- sample origin: https://github.com/googlearchive/webplatform-samples -->
+		<!-- http://localhost/webspeechdemo/webspeechdemo.html -->
+		<meta charset="utf-8">
+		<title>Web voice action plugin</title>
+		<link href="http://localhost/lastmessage/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://localhost/webspeechdemo/assets/main_voice_recogise/css/main_voice_recogise.css" rel="stylesheet">		
+	</head>
+	<body>
+		<h1>From here you can make contact</h1>
+		<br/>
+		<h2>Thanks,</h2>
+		<h2>Akash Patel [@patelakash317]</h2>
+		<h2>Skyology Inc.</h2>
+		<a href="http://localhost/webspeechdemo/auto_voice_action_web.html">Go back</a>
+
+		<script type="text/javascript" src="http://localhost/lastmessage/assets/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="http://localhost/lastmessage/assets/js/popper.min.js"></script>
+    <script type="text/javascript" src="http://localhost/lastmessage/assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://localhost/webspeechdemo/assets/main_voice_recogise/js/main_voice_recogise.js"></script>
+    <!-- action functions -->
+    <script>
+      // request keywords
+        // full
+          // let action_block = {
+          //   //speakAboutUs(),
+          //   'visit,open,contact,contact us,Page': {
+          //     action_type: 'redirect',
+          //     action_value: 'http://localhost/webspeechdemo/contact.html',
+          //   },
+          //   'visit,redirect,about,inform,open,say,speak,tell,about us,page': {
+          //     action_type: 'call_function',
+          //     action_value: 'callout/about',
+          //   },
+          // };
+
+        // specific
+          let action_block = {
+            //speakAboutUs(),
+            'contact,contact us': {
+              action_type: 'redirect',
+              action_value: 'http://localhost/webspeechdemo/contact.html',
+            },
+            'about,info,about us': {
+              action_type: 'call_function',
+              action_value: 'speakAbout',
+              // action_value: 'callout/about',
+            },
+            'back,previous page': {
+              action_type: 'call_previous',
+              action_value: '',
+              // action_value: 'callout/about',
+            },
+          };
+      // request keywords ends
+
+      function speakAbout(){
+        console.log('speak about call function called');
+      }
+    </script>
+    <!-- action functions ends-->
+	</body>
+</html>
