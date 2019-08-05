@@ -29,33 +29,32 @@ Kind of Google Duplex for Web
              - keep this empty
 
 
-   **Sample**
-        ```
-        let action_block = {
-          'contact,contact us': { // keywords for redirecting to contact page
-            action_type: 'redirect',
-            action_value: 'http://localhost/webspeechdemo/contact.html',
-          },
-          'about,info,about us': { // keywords to call "speakAbout" function on about recognisation
-            action_type: 'call_function', 
-            action_value: 'speakAbout',
-          },
-          'back,previous page': { // keywords to identify to go back
-            action_type: 'call_previous',
-            action_value: '',
-          },
-        };
-        ```
+**Sample**
+```
+let action_block = {
+  'contact,contact us': { // keywords for redirecting to contact page
+    action_type: 'redirect',
+    action_value: 'http://localhost/webspeechdemo/contact.html',
+  },
+  'about,info,about us': { // keywords to call "speakAbout" function on about recognisation
+    action_type: 'call_function', 
+    action_value: 'speakAbout',
+  },
+  'back,previous page': { // keywords to identify to go back
+    action_type: 'call_previous',
+    action_value: '',
+  },
+};
+```
       
 
 **Specified functions [in same format]:**
    - **speakAbout**: As specified in above code, used to call when about is recognised 
      [Note: define function after defining variable "action_block"]
 
-   **Sample**
-        ```
-        function speakAbout(){
-          console.log('speak about call function called');
-        }
-        ```
-      
+**Sample**
+```
+function speakAbout(){
+  console.log('speak about call function called');
+}
+```
