@@ -1,6 +1,8 @@
 **Welcome to Webdupe.js - Web Voice Action using Speech Plugin**
 Kind of Google Duplex for Web
 
+Demo: https://patelakash317.github.io/webdupe
+
 For any issues or help relating to implementation: write us at https://github.com/patelakash317/webdupe/issues
 
 Usage and demo:
