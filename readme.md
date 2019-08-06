@@ -1,6 +1,10 @@
 **Welcome to WebDupe - Web Voice Action using Speech Plugin**
 Kind of Google Duplex for Web
 
+Usage and demo:
+ Watch video: https://www.youtube.com/watch?v=d9e856UzYw4
+ Page redirection: https://www.youtube.com/watch?v=LzZLN99hQAw&t=1s
+
 **Basic commands:**
    - **Stop listening**: To stop listening
 
@@ -19,11 +23,12 @@ Kind of Google Duplex for Web
        - **action_type**: Action type: redirect, call_function OR call_previous
 
        - **action_value:** 
-          If **action_type = redirect**
+          If **action_type = redirect** (Example watch video: https://www.youtube.com/watch?v=LzZLN99hQAw&t=1s)
              - enter URL here, ex: http://example.com/about.html
 
           If **action_type = call_function**
-             - enter function name, ex: speakAbout [Note: without () function braces]
+             - enter function name, ex: speakAbout 
+             [Note: without () function braces]
 
           If **action_type = call_previous**
              - keep this empty
@@ -50,9 +55,9 @@ let action_block = {
 
 **Specified functions [in same format]:**
    - **speakAbout**: As specified in above code, used to call when about is recognised 
-     [Note: define function after defining variable "action_block"]
+        [Note: define function after defining variable "action_block"]
 
-**Sample**
+**Sample** (Example watch video: https://www.youtube.com/watch?v=d9e856UzYw4)
 ```
 function speakAbout(){
   console.log('speak about call function called');
