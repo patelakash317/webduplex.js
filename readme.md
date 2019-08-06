@@ -1,6 +1,8 @@
 **Welcome to WebDupe - Web Voice Action using Speech Plugin**
 Kind of Google Duplex for Web
 
+For any issues or help relating to implementation: write us at https://github.com/patelakash317/webdupe/issues
+
 Usage and demo:
  Watch video: https://www.youtube.com/watch?v=d9e856UzYw4
  Page redirection: https://www.youtube.com/watch?v=LzZLN99hQAw&t=1s
