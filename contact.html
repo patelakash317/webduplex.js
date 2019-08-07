@@ -5,8 +5,8 @@
 		<!-- http://localhost/webspeechdemo/webspeechdemo.html -->
 		<meta charset="utf-8">
 		<title>Web voice action plugin</title>
-		<link href="http://localhost/lastmessage/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="http://localhost/webspeechdemo/assets/main_voice_recogise/css/main_voice_recogise.css" rel="stylesheet">		
+		<link href="./assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./assets/webdupe/css/webdupe.css" rel="stylesheet">		
 	</head>
 	<body>
 		<h1>From here you can make contact</h1>
@@ -14,12 +14,12 @@
 		<h2>Thanks,</h2>
 		<h2>Akash Patel [@patelakash317]</h2>
 		<h2>Skyology Inc.</h2>
-		<a href="http://localhost/webspeechdemo/auto_voice_action_web.html">Go back</a>
+		<a href="window.history.go(-1);">Go back</a>
 
-		<script type="text/javascript" src="http://localhost/lastmessage/assets/js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="http://localhost/lastmessage/assets/js/popper.min.js"></script>
-    <script type="text/javascript" src="http://localhost/lastmessage/assets/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="http://localhost/webspeechdemo/assets/main_voice_recogise/js/main_voice_recogise.js"></script>
+		<script type="text/javascript" src="./assets/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="./assets/js/popper.min.js"></script>
+    <script type="text/javascript" src="./assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./assets/webdupe/js/webdupe.js"></script>
     <!-- action functions -->
     <script>
       // request keywords
@@ -41,7 +41,7 @@
             //speakAboutUs(),
             'contact,contact us': {
               action_type: 'redirect',
-              action_value: 'http://localhost/webspeechdemo/contact.html',
+              action_value: 'window.history.go(-1);',
             },
             'about,info,about us': {
               action_type: 'call_function',
