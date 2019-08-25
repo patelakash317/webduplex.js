@@ -12,11 +12,11 @@ Usage and demo:
 **Integration/Setup:**
   - **Step 1**: Add 
     
-    - **CSS**: /assets/webdupe/css/webdupe.min.css
+    - **CSS**: /assets/webdupe/css/**webdupe.min.css**
 
-    - **JS**: /assets/webdupe/js/webdupe.min.js in your website - after jquery-3.3.1.min.js and bootstrap.min.js
+    - **JS**: /assets/webdupe/js/**webdupe.min.js** in your website - after jquery-3.3.1.min.js and bootstrap.min.js
   
-  - **Step 2**: use "action_block" variable to add/map various keyword to recognise and mention appropriate actions to be carried out against it
+  - **Step 2**: use "**action_block**" variable to add/map various keyword to recognise and mention appropriate actions to be carried out against it
 
 **Basic commands:**
    - **Stop listening**: To stop listening
@@ -28,20 +28,23 @@ Usage and demo:
        - **action_type**: Action type: redirect, call_function OR call_previous
 
        - **action_value:** 
-          If **action_type = redirect** (Example watch video: https://www.youtube.com/watch?v=LzZLN99hQAw&t=1s)
-             - enter URL here, ex: http://example.com/about.html
+          - If **action_type = redirect** (Example watch video: https://www.youtube.com/watch?v=LzZLN99hQAw&t=1s)
+            
+            - **action_value** contains URL here, ex: http://example.com/about.html
 
-          If **action_type = call_function**
-             - enter function name, ex: speakAbout 
-             [Note: without () function braces]
+          - If **action_type = call_function**
+            
+            - **action_value** enter function name here, ex: speakAbout 
+            
+            - Note: function must be without () braces
 
-          If **action_type = call_previous**
-             - keep this empty
-
+          - If **action_type = call_previous**
+            
+            - **action_value** keep this empty
 
 **Sample**
 ```
-let action_block = {
+action_block = {
   'show_status': false, // to show status, Quick, Speak now, Errors etc.
   'contact,contact us': { // keywords for redirecting to contact page
     action_type: 'redirect',
