@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <title>WebDupe plugin</title>
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./assets/webdupe/css/webdupe.css" rel="stylesheet">
+    <link href="./assets/webdupe/css/webdupe.min.css" rel="stylesheet">
     <style>
       * {
         font-family: Verdana, Arial, sans-serif;
@@ -54,6 +54,15 @@
         right: 477px;
         top: 21px;
         border-radius: 0;
+      }
+      .webdupenote{
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        padding-left: 5px;
+        padding-bottom: 5px;
+        margin: 0;
+        background-color: #ffffff;
       }
     </style>
   </head>
@@ -121,7 +130,8 @@
         }
       </pre>
     </code>
-    
+    <br/><br/>
+    <p class="webdupenote">Quick Access Voice Keyboard Shortcut: Shift+S</p>
 
     <div class="action_credits">
       <button class="btnca btn btn-primary" onclick="showCredits()">Actions</button>
@@ -158,7 +168,7 @@
       // additional function ensd
     </script>
 
-    <script type="text/javascript" src="./assets/webdupe/js/webdupe.js"></script>
+    <script type="text/javascript" src="./assets/webdupe/js/webdupe.min.js"></script>
     <!-- action functions -->
     <script>
       // request keywords
@@ -176,8 +186,8 @@
           // };
 
         // specific
-          let action_block = {
-            //speakAboutUs(),
+          action_block = {
+            'show_status': true, //true/false - to show status, Quick, Speak now, Errors etc.
             'contact,contact us': {
               action_type: 'redirect',
               action_value: 'contact.html',
@@ -197,24 +207,46 @@
       // request keywords ends
 
       function speakAbout(){
+        recognition.stop();
         console.log('speak about call function called');
         var text = "This is a plugin which you can use it on your website to give your customers or users extra facility to get information about your website using voice actions or they can use it to redirect to some page very quickly, just by simply saying redirect me, to contact page.";
         // var text = $('#message').val();
         var msg = new SpeechSynthesisUtterance();
-        var voices = window.speechSynthesis.getVoices();
-        msg.voice = voices[4];
-        msg.rate = 10 / 10;
-        msg.pitch = 1;
-        // msg.voice = voices[$('#voices').val()];
-        // msg.rate = $('#rate').val() / 10;
-        // msg.pitch = $('#pitch').val();
-        msg.text = text;
+        var voices = window.speechSynthesis.getVoices(); // find your prefered language from this list
+        // console.log(voices); // uncomment this you will get the list in console, select one and pass it in below getLanguage function in second argument
+        let final_voices = getLanguage(voices, 'Google US English');
+        if(final_voices == 'not'){
+          console.log('No supporting language found.');
+          alert(text);
+        } else {
+          // mentioned language supporting 
+          msg.voice = final_voices;
+          // voices[4]
+          msg.rate = 10 / 10;
+          msg.pitch = 1;
+          // msg.voice = voices[$('#voices').val()];
+          // msg.rate = $('#rate').val() / 10;
+          // msg.pitch = $('#pitch').val();
+          msg.text = text;
 
-        msg.onend = function(e) {
-          console.log('Finished in ' + event.elapsedTime + ' seconds.');
-        };
+          msg.onend = function(e) {
+            console.log('Finished in ' + event.elapsedTime + ' seconds.');
+          };
 
-        speechSynthesis.speak(msg);
+          speechSynthesis.speak(msg);
+        }
+      }
+
+      function getLanguage(voices, language_name){
+        let found = 'not';
+        $.each(voices, function(index, value){
+          if(found == 'not'){
+            if(value.name.indexOf(language_name) !== -1){
+              found = value;
+            }
+          }
+        });
+        return found;
       }
       $(function(){
         // speech source: https://codepen.io/SteveJRobertson/pen/emGWaR

@@ -4,9 +4,20 @@
 		<!-- sample origin: https://github.com/googlearchive/webplatform-samples -->
 		<!-- http://localhost/webspeechdemo/webspeechdemo.html -->
 		<meta charset="utf-8">
-		<title>Web voice action plugin</title>
+		<title>WebDupe plugin</title>
 		<link href="./assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./assets/webdupe/css/webdupe.css" rel="stylesheet">		
+    <link href="./assets/webdupe/css/webdupe.min.css" rel="stylesheet">		
+    <style type="text/css">
+      .webdupenote{
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        padding-left: 5px;
+        padding-bottom: 5px;
+        margin: 0;
+        background-color: #ffffff;
+      }
+    </style>
 	</head>
 	<body>
 		<h1>From here you can make contact</h1>
@@ -15,11 +26,12 @@
 		<h2>Akash Patel [@patelakash317]</h2>
 		<h2>Skyology Inc.</h2>
 		<a href="window.history.go(-1);">Go back</a>
+    <p class="webdupenote">Quick Access Voice Keyboard Shortcut: Shift+S</p>
 
 		<script type="text/javascript" src="./assets/js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="./assets/js/popper.min.js"></script>
     <script type="text/javascript" src="./assets/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="./assets/webdupe/js/webdupe.js"></script>
+    <script type="text/javascript" src="./assets/webdupe/js/webdupe.min.js"></script>
     <!-- action functions -->
     <script>
       // request keywords
@@ -37,18 +49,18 @@
           // };
 
         // specific
-          let action_block = {
-            //speakAboutUs(),
-            'contact,contact us': {
+          action_block = {
+            'show_status': true, //true/false - to show status, Quick, Speak now, Errors etc.
+            'contact,contact us': { // keywords to redirect to contact page
               action_type: 'redirect',
               action_value: 'window.history.go(-1);',
             },
-            'about,info,about us': {
+            'about,info,about us': { // keywords to speak about this website
               action_type: 'call_function',
               action_value: 'speakAbout',
               // action_value: 'callout/about',
             },
-            'back,previous page': {
+            'back,previous page': { // keywords going back to previous page
               action_type: 'call_previous',
               action_value: '',
               // action_value: 'callout/about',
@@ -57,7 +69,46 @@
       // request keywords ends
 
       function speakAbout(){
+        recognition.stop();
         console.log('speak about call function called');
+        var text = "This is a plugin which you can use it on your website to give your customers or users extra facility to get information about your website using voice actions or they can use it to redirect to some page very quickly, just by simply saying redirect me, to contact page.";
+        // var text = $('#message').val();
+        var msg = new SpeechSynthesisUtterance();
+        var voices = window.speechSynthesis.getVoices(); // find your prefered language from this list
+        // console.log(voices); // uncomment this you will get the list in console, select one and pass it in below getLanguage function in second argument
+        let final_voices = getLanguage(voices, 'Google US English');
+        if(final_voices == 'not'){
+          console.log('No supporting language found.');
+          alert(text);
+        } else {
+          // mentioned language supporting 
+          msg.voice = final_voices;
+          // voices[4]
+          msg.rate = 10 / 10;
+          msg.pitch = 1;
+          // msg.voice = voices[$('#voices').val()];
+          // msg.rate = $('#rate').val() / 10;
+          // msg.pitch = $('#pitch').val();
+          msg.text = text;
+
+          msg.onend = function(e) {
+            console.log('Finished in ' + event.elapsedTime + ' seconds.');
+          };
+
+          speechSynthesis.speak(msg);
+        }
+      }
+
+      function getLanguage(voices, language_name){
+        let found = 'not';
+        $.each(voices, function(index, value){
+          if(found == 'not'){
+            if(value.name.indexOf(language_name) !== -1){
+              found = value;
+            }
+          }
+        });
+        return found;
       }
     </script>
     <!-- action functions ends-->
