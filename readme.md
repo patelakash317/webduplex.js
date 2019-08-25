@@ -3,11 +3,16 @@ Kind of Google Duplex for Web
 
 Demo: https://patelakash317.github.io/webdupe
 
-For any issues or help relating to implementation: write us at https://github.com/patelakash317/webdupe/issues
+For any issues or help relating to implementation: write us at https://github.com/patelakash317/webdupe.js/issues
 
 Usage and demo:
  Watch video: https://www.youtube.com/watch?v=d9e856UzYw4
  Page redirection: https://www.youtube.com/watch?v=LzZLN99hQAw&t=1s
+
+**Integration:**
+  - **Step 1**: Add webdupe.min.css and webdupe.min.js in your website - after jquery.min.js and bootstrap.min.js
+  
+  - **Step 2**: use "action_block" variable to add/map various keyword to recognise and mention appropriate actions to be carried out against it
 
 **Basic commands:**
    - **Stop listening**: To stop listening
@@ -41,6 +46,7 @@ Usage and demo:
 **Sample**
 ```
 let action_block = {
+  'show_status': false, // to show status, Quick, Speak now, Errors etc.
   'contact,contact us': { // keywords for redirecting to contact page
     action_type: 'redirect',
     action_value: 'http://localhost/webspeechdemo/contact.html',
@@ -53,6 +59,10 @@ let action_block = {
     action_type: 'call_previous',
     action_value: '',
   },
+  'need,some,help': { // i need some help
+    action_type: 'call_function',
+    action_value: 'speakWhatHelp',
+  },
 };
 ```
       
@@ -64,6 +74,13 @@ let action_block = {
 **Sample** (Example watch video: https://www.youtube.com/watch?v=d9e856UzYw4)
 ```
 function speakAbout(){
-  console.log('speak about call function called');
+  console.log('About function called. Add or do activity like speaking about this website.');
+}
+```
+
+```
+function speakWhatHelp(){
+  console.log('Help function called. add or do activity like replying "How can I help you?"');
+  startRecognizingManually(); // to start recognising again manually
 }
 ```
