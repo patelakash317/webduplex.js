@@ -10,7 +10,7 @@ Usage and demo:
  Page redirection: https://www.youtube.com/watch?v=LzZLN99hQAw&t=1s
 
 **Integration:**
-  - **Step 1**: Add webdupe.min.css and webdupe.min.js in your website - after jquery.min.js and bootstrap.min.js
+  - **Step 1**: Add /assets/webdupe/css/webdupe.min.css and /assets/webdupe/js/webdupe.min.js in your website - after jquery.min.js and bootstrap.min.js
   
   - **Step 2**: use "action_block" variable to add/map various keyword to recognise and mention appropriate actions to be carried out against it
 
