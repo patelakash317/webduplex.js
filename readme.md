@@ -9,8 +9,12 @@ Usage and demo:
  Watch video: https://www.youtube.com/watch?v=d9e856UzYw4
  Page redirection: https://www.youtube.com/watch?v=LzZLN99hQAw&t=1s
 
-**Integration:**
-  - **Step 1**: Add /assets/webdupe/css/webdupe.min.css and /assets/webdupe/js/webdupe.min.js in your website - after jquery.min.js and bootstrap.min.js
+**Integration/Setup:**
+  - **Step 1**: Add 
+    
+    - **CSS**: /assets/webdupe/css/webdupe.min.css
+
+    - **JS**: /assets/webdupe/js/webdupe.min.js in your website - after jquery-3.3.1.min.js and bootstrap.min.js
   
   - **Step 2**: use "action_block" variable to add/map various keyword to recognise and mention appropriate actions to be carried out against it
 
@@ -18,14 +22,6 @@ Usage and demo:
    - **Stop listening**: To stop listening
 
    - **Clear**: To clear existing commands
-
-
-**Working/Setup**:
-**Files [in same format]**:
-**CSS**: main_voice_recogise.css
-**JS**: jquery-3.3.1.min.js, bootstrap.min.js, main_voice_recogise.js
-
-
 
 **Variables [in same format]:**
    - **action_block**: Config variable for setup
