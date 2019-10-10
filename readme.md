@@ -1,9 +1,9 @@
-**Welcome to Webdupe.js - Web Voice Action using Speech Plugin**
+**Welcome to Webduplex.js - Web Voice Action using Speech Plugin**
 Kind of Google Duplex for Web
 
-Demo: https://patelakash317.github.io/webdupe
+Demo: https://patelakash317.github.io/webduplex
 
-For any issues or help relating to implementation: write us at https://github.com/patelakash317/webdupe.js/issues
+For any issues or help relating to implementation: write us at https://github.com/patelakash317/webduplex.js/issues
 
 Usage and demo:
  Watch video: https://www.youtube.com/watch?v=d9e856UzYw4
@@ -12,9 +12,9 @@ Usage and demo:
 **Integration/Setup:**
   - **Step 1**: Add 
     
-    - **CSS**: /assets/webdupe/css/**webdupe.min.css**
+    - **CSS**: /assets/webduplex/css/**webduplex.min.css**
 
-    - **JS**: /assets/webdupe/js/**webdupe.min.js** in your website - after jquery-3.3.1.min.js and bootstrap.min.js
+    - **JS**: /assets/webduplex/js/**webduplex.min.js** in your website - after jquery-3.3.1.min.js and bootstrap.min.js
   
   - **Step 2**: use "**action_block**" variable to add/map various keyword to recognise and mention appropriate actions to be carried out against it
 
