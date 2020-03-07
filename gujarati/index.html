@@ -1,0 +1,323 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+		<style type="text/css">
+			body{
+				/*width: 100%;
+
+		    background-image: url(https://www.ecopetit.cat/wpic/mpic/146-1469667_happy-holi-images-photos-wallpapers-picture-hd-2019.png);
+		    background-repeat: no-repeat;
+		    background-position: top center;
+  			background-size: 28%;*/
+		    /*background-position: center;
+		    background-size: contain;*/
+			}
+			body div{
+				/*width: 99%;
+				margin: 0 auto;
+				text-align: center;*/
+			}
+			button{
+				/*position: absolute;
+		    top: 65%;
+		    left: 44%;
+		    font-size: 26px !important;*/
+		    font-size: 26px !important;
+			}
+      @media (max-width: 576px) {
+				
+			}
+      @media (max-width: 768px) {
+      	
+      	/*body{
+  				background-size: 100% !important;
+				}
+				button{
+					
+				}*/
+			}
+		</style>
+	</head>
+	<body>
+		<div style="text-align: center;">
+			<img src="https://www.ecopetit.cat/wpic/mpic/146-1469667_happy-holi-images-photos-wallpapers-picture-hd-2019.png" width="450">
+			<br/>
+			<textarea type="text" name="gujtext" id="gujtext" style="visibility: hidden;"></textarea>
+			<br/>
+			<button id="btnplay" class="btn btn-success" onclick="welcomePlay()">મેસેજ સાંભળો</button>
+			<img id="imgloader" style="display: none;height: 71px;" src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/dae67631234507.564a1d230a290.gif">
+		</div>
+		<audio id="noise"></audio>
+	</body>
+</html>
+
+<script type="text/javascript">
+	function getRequests() {
+    var s1 = location.search.substring(1, location.search.length).split('&'),
+      r = {}, s2, i;
+	  for (i = 0; i < s1.length; i += 1) {
+      s2 = s1[i].split('=');
+      r[decodeURIComponent(s2[0]).toLowerCase()] = decodeURIComponent(s2[1]);
+	  }
+	  return r;
+	};
+	var QueryString = getRequests();
+
+	//if url === "index.html?test1=t1&test2=t2&test3=t3"
+	// console.log(QueryString["test1"]); //logs t1
+	document.getElementById('gujtext').value = QueryString["mymsg"];
+
+	// setTimeout(function(){
+	// 	welcomePlay();
+	// }, 500);
+	var welcome_played = 0;
+	function welcomePlay(){
+		document.getElementById('btnplay').style.display = "none";
+		document.getElementById('imgloader').style.display = "inline-block";
+
+		window.seltext = 'આપણું અમારી વેબસાઈટ પર સ્વાગત છે. તમારો મેસેજ લોડ થઇ રહીયો છે. કૃપયા રાહ જુવો.';
+		// window.seltext = 'હું આકાશ પટેલ અને મારા સંપૂર્ણ કુટુંબ તરફથી આપણે તથા આપણા પરિવારને હોળી અને ધુળેટીની હાર્દિક શુભકામનાઓ પાઠવું છુ.';
+		send_req();
+		secondMessage();		
+	}
+	function secondMessage(){		
+		setTimeout(function(){
+			document.getElementById('btnplay').style.display = "none";
+			document.getElementById('imgloader').style.display = "inline-block";
+
+			if(welcome_played == 1){
+				textPlay();
+			} else {
+				secondMessage();
+			}
+		}, 7000);
+	}
+	function textPlay(){
+		window.seltext = document.getElementById('gujtext').value;
+		send_req();				
+	}
+
+	/************************************************************************************************/
+	/*	Programmer: Vishal Rangnath Maral, CDAC Mumbai <vishalrmaral@gmail.com>	, Mani Shankar Bandaru CDAC Mumbai <manishankar417@gmail.com>		*/
+	/*	Last modified: 16 March 2015.								*/
+	// Modified as per requirement by Akash Patel, Adeptstation LLP <patelakash317@gmail.com>
+	/************************************************************************************************/
+
+	var seltext = null;
+	var selText = null;
+	var snd=document.getElementById('noise');
+	var count = null;
+	var trackPos;
+
+	function playsound(){
+		var snd=document.getElementById('noise');
+		//alert("from play");
+		//snd.src="Kalimba.mp3";
+		//snd.src="http://tts.cdacmumbai.in/wav_output/fest_out"+count+".wav";
+		snd.src="http://tdil-dc.in/tts/wav_output/fest_out"+count+".mp3";
+	    	snd.load();
+	    	snd.play();
+		snd.addEventListener('ended', stopAnimation);
+		console.log('play sound');
+
+		if(welcome_played == 0)
+			welcome_played = 1;
+
+		document.getElementById('btnplay').style.display = "inline-block";
+		document.getElementById('imgloader').style.display = "none";
+	}
+	function pausesound(){
+  	var snd=document.getElementById('noise');
+  	snd.pause();
+		snd.addEventListener('ended', stopAnimation);//added for modification
+
+		// var popup=chrome.extension.getViews({type:'popup'})[0];
+		// var loaderImage = popup.document.getElementById("loaderImage");
+		console.log('pause sound');
+		// loaderImage.style.visibility="visible";
+		// loaderImage.src="images/emblam.png";
+	}
+
+	function replaysound(){
+		//alert("from Replay");
+		var snd=document.getElementById('noise');
+		snd.currentTime=0;
+		snd.play();
+	}
+
+	function stopAnimation()
+	{
+		//alert('Hola');
+		console.log('hola');
+		// var popup=chrome.extension.getViews({type:'popup'})[0];
+		// var loaderImage = popup.document.getElementById("loaderImage");
+
+		//loaderImage.style.visibility="hidden";
+		// loaderImage.src="images/emblam.png";
+	}
+
+	function animate()
+	{
+		// https://www.ecopetit.cat/wpic/mpic/146-1469667_happy-holi-images-photos-wallpapers-picture-hd-2019.png
+		console.log(" popup captured");
+		// document.getElementById('btnplay').style.display = "none";
+		// document.getElementById('imgloader').style.display = "inline-block";
+		// var popup=chrome.extension.getViews({type:'popup'})[0];
+		// if(popup)
+		// {
+		// 	//	alert(" popup captured");
+		// 	var loaderImage = popup.document.getElementById("loaderImage");
+		// 	//if(loaderImage)
+		// 	//	alert("loader image captured");
+		// 	loaderImage.src="images/playing1.gif";
+		// 	localStorage["loaderImage"]="playing1.gif";
+		// }
+	}
+
+	function send_req()
+	{
+		var language = "htsgujarati_male";
+		// var language = localStorage["favorite_language"] || "htsgujarati_male";
+		var voiceSpeed='normal';
+		// var voiceSpeed='localStorage["speed"]';
+		//alert("language from local storage is--"+language);
+		if(lang==language && voiceSpeed==speed && selText==seltext)//version 1.0 condition-->(selText==seltext)
+		{
+			animate();
+			//playsound();		
+			var snd=document.getElementById('noise');
+		    	snd.play();
+			//snd.addEventListener('ended', stopAnimation);
+		}
+		else
+		{
+			//alert("sending request");
+			selText=seltext;
+			//alert("seltext-->"+seltext);
+			//alert("select has text");
+			var vc = "voice1";
+			// var lang='localStorage["favorite_language"] || "hindi"';
+			var lang='htsgujarati_male';
+			// var speed='localStorage["speed"]';
+			var speed='normal';
+			//var lang="marathi";
+			//var url = "http://tts.cdacmumbai.in/festival_cs_plugin.php";
+			var url = "http://tdil-dc.in/tts/festival_cs_plugin.php";
+		    	count =  Math.floor( Math.random()*100000000 +1 );
+		    	//window.alert("count="+count);
+		      	var params = "Languages="+lang+"&voice="+vc+"&ex=execute&op="+selText+"&count="+count+"&speed="+speed;  
+		    //window.alert(params);     
+		  	http = new XMLHttpRequest();
+		  	http.open("POST", url, true);
+		  	//Send the proper header information along with the request
+		  	http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		  	http.setRequestHeader("Content-length", params.length);
+		  	http.setRequestHeader("Connection", "close");
+		  	http.onreadystatechange = function() {
+				if(http.readyState == 4) {
+					var resTxt = http.responseText;
+					animate();
+					playsound();
+		  		}
+			  	}
+		  	http.send(params);
+				//alert("request sent from background");
+		}
+	 }
+
+	function placeCall()
+	{
+		if(seltext && seltext!="" && seltext!=" ")
+			//alert("click received for "+request.directive+" "+seltext);
+			send_req();				
+		else
+		{
+			stopAnimation();
+			alert("Please select text to speak");//do NOT comment this
+			break;
+		}
+	}
+
+		
+	// window.addListener(
+	//     function(request, sender, sendResponse) 
+	// 	{
+	// 	//alert("from background.js");
+	//         switch (request.directive) {
+	//         	case "play":
+				
+	// 			if(seltext && seltext!="" && seltext!=" ")
+	// 				//alert("click received for "+request.directive+" "+seltext);
+	// 				send_req();				
+	// 			else
+	// 			{
+	// 				stopAnimation();
+	// 				alert("Please select text to speak");//do NOT comment this
+	// 				break;
+	// 			}
+	// 					//playsound();
+	//             		break;
+	// 		case "pause":
+	// 			//alert("click received for "+request.directive);
+	//             		pausesound();
+	//             		break;
+	// 		case "replay":
+	// 			//alert("click received for "+request.directive);
+	//             		replaysound();
+	//             		break;
+	//         	default:
+	//             		// helps debug when request directive doesn't match
+	//             		alert("Unmatched request of '" + request + "' from script to background.js from " + sender);
+	//         }
+	//     }
+	// );
+
+	 
+	// chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
+	// {
+	//     switch(request.message)
+	//     {
+	//         case 'setText':
+	//             	window.seltext = request.data;
+	// 		//alert("from bg===>"+seltext);
+	//         break;
+	         
+	//         default:
+	//             	sendResponse({data: 'Invalid arguments'});
+	//         break;
+	//     }
+	// });
+
+	// function rightClick()
+	// {	
+	// 	//alert("hi Vishal");
+	// 	chrome.contextMenus.removeAll();
+	// 	chrome.contextMenus.create({ "title" : "Speakit!","type" : "normal","contexts" : ["selection"], //the context which item appear
+	// 	  "onclick" : speakOnClick // The function call on click
+	// 	});
+	// }
+	function speakOnClick(info, tab) 
+	{
+		
+		seltext = info.selectionText;
+		//alert(seltext);
+		//window.open("popup.html", "window", "width=300,height=300,status=yes,scrollbars=yes,resizable=yes");
+		
+		send_req();		
+
+		/*if(seltext && seltext!="" && seltext!=" ")
+			//alert("click received for "+request.directive+" "+seltext);
+			send_req();				
+		else
+		{
+			stopAnimation();
+			alert("Please select text to speak");//do NOT comment this
+			break;
+		}*/
+					
+	}
+
+	// rightClick();
+
+
+</script>
