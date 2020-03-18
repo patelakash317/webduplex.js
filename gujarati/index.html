@@ -63,19 +63,17 @@
 	};
 	var QueryString = getRequests();
 
-	//if url === "index.html?test1=t1&test2=t2&test3=t3"
-	// console.log(QueryString["test1"]); //logs t1
 	document.getElementById('gujtext').value = QueryString["mymsg"];
 
-	// setTimeout(function(){
-	// 	welcomePlay();
-	// }, 500);
 	var welcome_played = 0;
 	function welcomePlay(){
 		document.getElementById('btnplay').style.display = "none";
 		document.getElementById('imgloader').style.display = "inline-block";
 
-		window.seltext = 'આપણું અમારી વેબસાઈટ પર સ્વાગત છે. તમારો મેસેજ લોડ થઇ રહીયો છે. કૃપયા રાહ જુવો.';
+		// window.seltext = 'આપણું અમારી વેબસાઈટ પર સ્વાગત છે. તમારો મેસેજ હમણાંજ લાવી હો, કૃપયા થોડી રાહ જુવો.';
+		window.seltext = 'આપણું અમારી વેબસાઈટ પર સ્વાગત છે. તમારો મેસેજ થોડીજ ક્ષણોમાં આવી રહ્યો છે.';
+		// window.seltext = 'આપણું અમારી વેબસાઈટ પર સ્વાગત છે. તમારો મેસેજ બની રહીયો છે! થોડી રાહ જોજો.';
+
 		// window.seltext = 'હું આકાશ પટેલ અને મારા સંપૂર્ણ કુટુંબ તરફથી આપણે તથા આપણા પરિવારને હોળી અને ધુળેટીની હાર્દિક શુભકામનાઓ પાઠવું છુ.';
 		send_req();
 		secondMessage();		
@@ -86,15 +84,21 @@
 			document.getElementById('imgloader').style.display = "inline-block";
 
 			if(welcome_played == 1){
-				textPlay();
+				var snd=document.getElementById('noise');
+				if(snd.paused){
+					textPlay();
+				} else {
+					console.log('previous message playing.');
+					secondMessage();
+				}
 			} else {
 				secondMessage();
 			}
 		}, 7000);
 	}
 	function textPlay(){
-		window.seltext = document.getElementById('gujtext').value;
-		send_req();				
+		window.seltext = "તમારો મેસેજ છે: "+document.getElementById('gujtext').value;
+		send_req();
 	}
 
 	/************************************************************************************************/
@@ -114,8 +118,8 @@
 		//alert("from play");
 		//snd.src="Kalimba.mp3";
 		//snd.src="http://tts.cdacmumbai.in/wav_output/fest_out"+count+".wav";
-		snd.src="http://tdil-dc.in/tts/wav_output/fest_out"+count+".mp3";
-	    	snd.load();
+		// snd.src="http://tdil-dc.in/tts/wav_output/fest_out"+count+".mp3";
+	 //    	snd.load();
 	    	snd.play();
 		snd.addEventListener('ended', stopAnimation);
 		console.log('play sound');
@@ -156,73 +160,43 @@
 		// loaderImage.src="images/emblam.png";
 	}
 
-	function animate()
-	{
-		// https://www.ecopetit.cat/wpic/mpic/146-1469667_happy-holi-images-photos-wallpapers-picture-hd-2019.png
-		console.log(" popup captured");
-		// document.getElementById('btnplay').style.display = "none";
-		// document.getElementById('imgloader').style.display = "inline-block";
-		// var popup=chrome.extension.getViews({type:'popup'})[0];
-		// if(popup)
-		// {
-		// 	//	alert(" popup captured");
-		// 	var loaderImage = popup.document.getElementById("loaderImage");
-		// 	//if(loaderImage)
-		// 	//	alert("loader image captured");
-		// 	loaderImage.src="images/playing1.gif";
-		// 	localStorage["loaderImage"]="playing1.gif";
-		// }
-	}
-
 	function send_req()
 	{
-		var language = "htsgujarati_male";
-		// var language = localStorage["favorite_language"] || "htsgujarati_male";
-		var voiceSpeed='normal';
-		// var voiceSpeed='localStorage["speed"]';
-		//alert("language from local storage is--"+language);
-		if(lang==language && voiceSpeed==speed && selText==seltext)//version 1.0 condition-->(selText==seltext)
-		{
-			animate();
-			//playsound();		
-			var snd=document.getElementById('noise');
-		    	snd.play();
-			//snd.addEventListener('ended', stopAnimation);
-		}
-		else
-		{
-			//alert("sending request");
+		// var language = "htsgujarati_male";
+		// // var language = localStorage["favorite_language"] || "htsgujarati_male";
+		// var voiceSpeed='normal';
+		// // var voiceSpeed='localStorage["speed"]';
+		// //alert("language from local storage is--"+language);
+		// if(lang==language && voiceSpeed==speed && selText==seltext)//version 1.0 condition-->(selText==seltext)
+		// {
+		// 	//playsound();		
+		// 	var snd=document.getElementById('noise');
+		//     	snd.play();
+		// 	//snd.addEventListener('ended', stopAnimation);
+		// }
+		// else
+		// {
+			// console.log(seltext);
 			selText=seltext;
-			//alert("seltext-->"+seltext);
-			//alert("select has text");
-			var vc = "voice1";
-			// var lang='localStorage["favorite_language"] || "hindi"';
-			var lang='htsgujarati_male';
-			// var speed='localStorage["speed"]';
-			var speed='normal';
-			//var lang="marathi";
-			//var url = "http://tts.cdacmumbai.in/festival_cs_plugin.php";
-			var url = "http://tdil-dc.in/tts/festival_cs_plugin.php";
-		    	count =  Math.floor( Math.random()*100000000 +1 );
-		    	//window.alert("count="+count);
-		      	var params = "Languages="+lang+"&voice="+vc+"&ex=execute&op="+selText+"&count="+count+"&speed="+speed;  
-		    //window.alert(params);     
-		  	http = new XMLHttpRequest();
-		  	http.open("POST", url, true);
-		  	//Send the proper header information along with the request
-		  	http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		  	http.setRequestHeader("Content-length", params.length);
-		  	http.setRequestHeader("Connection", "close");
-		  	http.onreadystatechange = function() {
-				if(http.readyState == 4) {
-					var resTxt = http.responseText;
-					animate();
-					playsound();
-		  		}
-			  	}
-		  	http.send(params);
-				//alert("request sent from background");
-		}
+			// new url
+				var url = "http://ivrapi.indiantts.co.in/tts?type=indiantts&text="+selText+"&api_key=2d108780-0b86-11e6-b056-07d516fb06e1d&user_id=80&action=play&lang=htsgujarati_male&pitch=250&speed=0.8&audioformat=mp3";
+				// Parameters : &speed Value allow 0.8 to 1.5 default 1
+				// Parameters : &Pitch Value allow -500 to 500 allowed. Default 0
+				// Parameters : (&numeric=currency)
+				// Parameters : (&numeric=digit)
+				// Parameters : <s>200</s> This tag allow value of 50 to 2000
+				// Time : : colon needed between HH and MM, Allow HH:MM
+				// Parameters : (“&audioformat) Audioformat allow mp3 and wave
+				// Parameters : (&numeric=hdigit) -> hindi digit
+				// Parameters : (&numeric=hcurrency) -> hindi currency 
+				// Parameters : (&samplerate) Value allow 8000, 16000 and 44100.
+
+			var snd=document.getElementById('noise');
+			snd.src = url;
+			snd.load()
+			playsound();
+			
+		// }
 	 }
 
 	function placeCall()
@@ -237,65 +211,6 @@
 			break;
 		}
 	}
-
-		
-	// window.addListener(
-	//     function(request, sender, sendResponse) 
-	// 	{
-	// 	//alert("from background.js");
-	//         switch (request.directive) {
-	//         	case "play":
-				
-	// 			if(seltext && seltext!="" && seltext!=" ")
-	// 				//alert("click received for "+request.directive+" "+seltext);
-	// 				send_req();				
-	// 			else
-	// 			{
-	// 				stopAnimation();
-	// 				alert("Please select text to speak");//do NOT comment this
-	// 				break;
-	// 			}
-	// 					//playsound();
-	//             		break;
-	// 		case "pause":
-	// 			//alert("click received for "+request.directive);
-	//             		pausesound();
-	//             		break;
-	// 		case "replay":
-	// 			//alert("click received for "+request.directive);
-	//             		replaysound();
-	//             		break;
-	//         	default:
-	//             		// helps debug when request directive doesn't match
-	//             		alert("Unmatched request of '" + request + "' from script to background.js from " + sender);
-	//         }
-	//     }
-	// );
-
-	 
-	// chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
-	// {
-	//     switch(request.message)
-	//     {
-	//         case 'setText':
-	//             	window.seltext = request.data;
-	// 		//alert("from bg===>"+seltext);
-	//         break;
-	         
-	//         default:
-	//             	sendResponse({data: 'Invalid arguments'});
-	//         break;
-	//     }
-	// });
-
-	// function rightClick()
-	// {	
-	// 	//alert("hi Vishal");
-	// 	chrome.contextMenus.removeAll();
-	// 	chrome.contextMenus.create({ "title" : "Speakit!","type" : "normal","contexts" : ["selection"], //the context which item appear
-	// 	  "onclick" : speakOnClick // The function call on click
-	// 	});
-	// }
 	function speakOnClick(info, tab) 
 	{
 		
