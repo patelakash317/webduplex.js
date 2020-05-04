@@ -1,7 +1,7 @@
 **Welcome to Webduplex.js - Web Voice Action using Speech Plugin**
-Kind of Google Duplex for Web
+Modular natural conversation system like Google duplex for web and web enterprises
 
-Demo: https://patelakash317.github.io/webduplex
+Demo: https://patelakash317.github.io/webduplex.js
 
 For any issues or help relating to implementation: write us at https://github.com/patelakash317/webduplex.js/issues
 
