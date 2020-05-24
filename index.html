@@ -5,6 +5,7 @@
     <!-- http://localhost/webspeechdemo/webspeechdemo.html -->
     <meta charset="utf-8">
     <title>WebDuplex plugin</title>
+    <meta name="description" content="Web Voice Action using Speech Plugin, Alternative to Google duplex for web">
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="./assets/webduplex/css/webduplex.min.css" rel="stylesheet">
     <style>
@@ -216,18 +217,29 @@
           };
       // request keywords ends
 
+      setTimeout(function(){test();}, 100);
+      function test(){ // preload get voices to save time for mobile
+        var voices_preload = window.speechSynthesis.getVoices(); // find your prefered language from this list
+        // $.each(voices, function(index, value){
+        //   $('#logsas').html($('#logsas').html()+'  -  '+value.name+'<br/>');
+        // });
+      }
       function speakAbout(){
         recognition.stop();
         console.log('speak about call function called');
-        var text = "This is a plugin which you can use it on your website to give your customers or users extra facility to get information about your website using voice actions or they can use it to redirect to some page very quickly, just by simply saying redirect me, to contact page.";
+        var text = "This is a plugin which you can use it on your website to give your customers or users extra facility to get information; about your website using voice actions, or they can use it to redirect, to some page very quickly, and that too, just by simply saying redirect me, to contact page.";
         // var text = $('#message').val();
         var msg = new SpeechSynthesisUtterance();
         var voices = window.speechSynthesis.getVoices(); // find your prefered language from this list
         // console.log(voices); // uncomment this you will get the list in console, select one and pass it in below getLanguage function in second argument
-        let final_voices = getLanguage(voices, 'Google US English');
+        let final_voices = getLanguage(voices, 'English');
+        // console.log(final_voices);
+        // let final_voices = getLanguage(voices, 'Google US English');
+
         if(final_voices == 'not'){
-          console.log('No supporting language found.');
-          alert(text);
+          // $('.product_div').html('We are sorry on behalf of your browser.<br/>Unfortunately, your browser does not support this language.<br/>But still you can try this on your Desktop.');
+          alert('We are sorry on behalf of your browser. Unfortunately, your browser does not support this language. But still you can try this on your Desktop.');
+          // alert(text);
         } else {
           // mentioned language supporting 
           msg.voice = final_voices;
